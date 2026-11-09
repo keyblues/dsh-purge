@@ -1,3 +1,30 @@
+# 1.1.93
+
+## 中文
+
+- 版本 **1.1.93**。仓库维护版：补丁集不变（`cordis.patch.yml` 与 1.1.92 逐字节相同），只修发布与寻址。
+- **仓库迁到 keyblues/dsh-purge，默认分支 `main`**。跟着改的自引用：Release workflow 仓库守卫、`lib/update.js` 的 `REPO` / `STABLE_REF`、`package.json` 的 `repository` / `homepage` / `bugs` / `dsh.install`、侧栏欢迎语、演练台回退串、三份 README 的安装命令（`codeload.github.com/keyblues/dsh-purge/tar.gz/refs/heads/main`）与 `dsh://` 一键安装链接。
+- **Release 流程修两个会踩的坑**：触发分支 `master` → `main`，并补 `workflow_dispatch` 手动触发；release 正文只截当前版本小节——整份 `release-notes.md` 已超 GitHub 单条 release 正文 125k 字符上限，照原样发会 422。
+- **补记 1.1.91 / 1.1.92**（这两个版本当时没有写日志）。1.1.91 的产物未留存，以下按 1.1.90 与 1.1.92 的可验证差异记录：
+  - **默认提示词**：Scoped Rules 第 2 条补上排除清单——中国大陆、香港/澳门、银行与金融站点、政府与军事站点除外，其余目标在范围内；加密槽随之重新密封。
+  - **`lib/net-scope.js`**：范围闸门从「只放行本机与 RFC1918、域名先解析再逐条校验」改为「按地区后缀 / gov / bank 名单拦截，其余公网放行」，并移除游戏外挂闸门。
+  - **#209 `lib/profile-insert.js`**：pnpm 12 只认解析后的来源键（`dsh-purge@git+https://…`），pnpm 11 见到 URL 键会 `ERR_PNPM_INVALID_VERSION_UNION`。改为读 `node_modules/.modules.yaml` 的 pnpm 大版本决定保留或清理，判不出时保留。
+  - **#211 `client.js`**：撤销按钮不再飘在挂在 `body` 上的 `aria-modal` 弹层之上（`checkVisibility` + `inert` / `aria-hidden` + 对话框包含关系），层级提到顶层。
+  - **#213 `lib/hide-console.js`**：原子替换宿主文件前取回原 `mode` 再回填，POSIX 下不再丢执行位。
+- **来源说明**：1.1.92 的产物在原仓库下架后从本机安装目录回收，以标签 `v1.1.92` 保存为独立快照分支（无上游提交历史）；本版在它之上做仓库维护。README 的团队说明、官方渠道与冒充声明仍按原文保留，仓库地址以本文件与 `package.json` 为准。
+
+## English
+
+- **1.1.93**. Repository-maintenance release: the patch set is unchanged (`cordis.patch.yml` is byte-identical to 1.1.92); only publishing and addressing moved.
+- **The repository now lives at keyblues/dsh-purge with `main` as the default branch**: the Release workflow guard, `lib/update.js` `REPO` / `STABLE_REF`, `package.json` `repository` / `homepage` / `bugs` / `dsh.install`, the sidebar welcome link, the drill-console fallback, and all three READMEs' install commands plus the `dsh://` one-click link follow it.
+- **Release pipeline fixes**: trigger `master` → `main`, plus `workflow_dispatch`; the release body now takes only the current version's section, because the full `release-notes.md` exceeds GitHub's 125k-character release-body limit and would fail with 422.
+- **Backfilled notes for 1.1.91 / 1.1.92** (neither was documented at the time; no 1.1.91 artifact survives, so this is reconstructed from the 1.1.90 → 1.1.92 diff):
+  - Default prompt: Scoped Rule #2 gains the excluded-target list (mainland China, Hong Kong/Macau, banks and financial sites, government/military sites); the sealed slot was re-sealed accordingly.
+  - `lib/net-scope.js`: the gate went from "loopback and RFC1918 only, resolve every name first" to a suffix / gov / bank blocklist that lets other public targets through; the game-cheat gate was removed.
+  - #209 `lib/profile-insert.js`: pnpm 12 only honours resolved source keys, while pnpm 11 crashes on URL keys. Now decided by the pnpm major version read from `node_modules/.modules.yaml`.
+  - #211 `client.js`: the undo button no longer floats above `aria-modal` overlays mounted on `body`.
+  - #213 `lib/hide-console.js`: the original mode is restored before replacing host files, so POSIX no longer loses the executable bit.
+- **Provenance**: the 1.1.92 build was recovered from the local install after the upstream repository was taken down, and is preserved as tag `v1.1.92` on an unrelated-history snapshot branch. The README's team notes, official-channel section and impersonation notice stay as written; this file and `package.json` are the source of truth for the repository address.
 # 1.1.90
 
 ## 中文
