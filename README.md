@@ -4,7 +4,7 @@
 
 <h1 align="center">⚔️ DeepSeek Harness cybersecurity red-team tool (dsh-purge)</h1>
 
-<p align="center"><strong>Version 1.1.94</strong></p>
+<p align="center"><strong>Version 1.1.95</strong></p>
 
 <p align="center">
   <em>DeepSeek Harness jailbreak: every model, swap prompts per model. Default prompt for 小码酱. Please star ⭐ If you build on this, see Attribution required.</em>
@@ -78,7 +78,7 @@ Official channels: this repository's [Issues](https://github.com/HunYiSage/dsh-p
 
 ## What this is
 
-**dsh-purge** is a cybersecurity red-team plugin for the official [DeepSeek Harness](https://www.deepseek.com/harness/) already installed on your machine. **1.1.94** targets **DSH 0.2.2-rc.1** and retains **0.2.1-rc.5 / rc.2** compatibility. Install and Apply the official **Web** (`dsh web`) and **desktop EXE** separately. See the [compatibility notes](docs/dsh-0.2.2-rc.1.md) for changes and validation scope.
+**dsh-purge** is a cybersecurity red-team plugin for the official [DeepSeek Harness](https://www.deepseek.com/harness/) already installed on your machine. **1.1.95** targets **DSH 0.2.2-rc.1**, retains **0.2.1-rc.5 / rc.2** compatibility, and fixes duplicate update choices and requests to the old stable branch. Install and Apply the official **Web** (`dsh web`) and **desktop EXE** separately. See the [compatibility notes](docs/dsh-0.2.2-rc.1.md) for changes and validation scope.
 
 Harness does more than forward a prompt. It rewrites prompts, approval gates, sandbox policy, and session migration at runtime. Asking only “will the model answer” treats a host-layer block as a model refusal. This plugin separates those two layers on your own install, for controlled evaluation and for seeing which default policy is too tight.
 
@@ -151,7 +151,7 @@ This repo is [Apache License 2.0](./LICENSE). Forks and redistributions must kee
 
 ## Supported hosts
 
-**1.1.94 targets DSH 0.2.2-rc.1.** CLI / Web requires Node.js **24.9.0 or newer**; the official desktop application supplies its runtime.
+**1.1.95 targets DSH 0.2.2-rc.1.** CLI / Web requires Node.js **24.9.0 or newer**; the official desktop application supplies its runtime.
 
 - **dsh 0.2.2-rc.1**: adapts prompt assembly, ToolSet lifetime, the split tool pipeline, PTC executor, and deliverable guidance. Checked against the official desktop archive and an isolated npm Web host.
 - **dsh 0.2.1-rc.5 / rc.2**: retains legacy layouts; official npm files pass patch simulation, syntax and repeat-application checks.

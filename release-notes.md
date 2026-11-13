@@ -1,3 +1,19 @@
+# 1.1.95
+
+## 中文
+
+- **修复正式版列表重复**：`main` 分支和发布标签指向同一版本、同一提交时合并为一项；保留标签别名，原有固定版本仍能识别。不同提交保持可区分。
+- **修复“更新失败：未知版本”**：前端不再写死 `master`，改用后端返回的通道分支；缺少通道信息时交由后端选择默认分支。后端兼容旧界面发来的正式版 `master` 请求，将其映射到 `main`。
+- 本机版本不在远端列表时，不再伪造一个 `master` 下载项；历史版本标签继续保留，可正常选择。
+- 新增 8 项更新回归测试，覆盖列表去重、标签别名、固定版本、旧界面请求、前端实际请求构造，以及完整检查更新响应。共 **18 项测试通过**。
+- **从 1.1.93 / 1.1.94 更新**：若旧“更新”按钮提示未知版本，在下拉框选最新版本后点“切换到此版本”，或使用离线安装脚本。完整退出并重开宿主后新版自更新逻辑生效。
+
+## English
+
+- Merge a stable branch and release tag when they identify the same version and commit; retain tag aliases and distinguish different builds.
+- Follow the server-provided update branch and accept legacy stable `master` requests as `main`, fixing the unknown-version error.
+- Keep local-only entries separate from downloadable refs. Add eight update regression tests; all 18 tests pass.
+
 # 1.1.94
 
 ## 中文

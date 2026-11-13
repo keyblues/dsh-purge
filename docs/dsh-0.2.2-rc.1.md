@@ -2,6 +2,8 @@
 
 本版以 DSH **0.2.2-rc.1** 为主目标，保留 **0.2.1-rc.5 / rc.2** 的适配声明。不是只改 `dshTarget`：修改依据来自官方桌面 `app.asar`、npm 发布包和对应发布标签的源码。
 
+后续 **1.1.95** 修复了更新列表将同一提交的 main / tag 显示两次，以及旧“更新”按钮仍请求 master 的问题。下面的适配测试和截图记录初始 1.1.94；当前安装方法见 [安装说明](install-other-dsh.md)。
+
 验证日期：2026-11-13。npm 的 `latest` 为 `0.2.2-rc.1`，`next` 为 `0.2.2-rc.3`；后者未纳入本次验证。CLI / Web 需要 Node.js **24.9.0 或更新版本**，官方桌面端使用自带运行时。
 
 ## 上游依据
@@ -64,13 +66,13 @@
 
 ## 安装本地构建
 
-仓库根执行 `npm pack --pack-destination dist` 可生成 `dist/dsh-purge-1.1.94.tgz`。本版在发布到远端前，直接使用本地安装包。
+仓库根执行 `npm pack --pack-destination dist` 可按当前 package.json 的版本生成安装包，当前为 `dist/dsh-purge-1.1.95.tgz`。
 
 本机桌面端可使用仓库已有的离线安装脚本。它会复制安装包、配置 profile 并建立链接；之后再由使用者在插件面板点 Apply。
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\install-other-dsh.ps1 `
-  -FromTarball .\dist\dsh-purge-1.1.94.tgz `
+  -FromTarball .\dist\dsh-purge-1.1.95.tgz `
   -ProfileName desktop
 ```
 

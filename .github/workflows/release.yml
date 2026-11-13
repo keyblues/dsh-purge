@@ -34,6 +34,8 @@ jobs:
           node --check lib/index.js
           node --check lib/core.js
           node --check lib/reapply.js
+          node --check lib/update.js
+          node --check client.js
           node --check scripts/check-compat.mjs
           node --input-type=module -e "import './lib/index.js'"
 

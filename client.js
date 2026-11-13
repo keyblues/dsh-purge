@@ -1707,9 +1707,8 @@ body[data-ds-dark-theme] .rt-rep-step-no,.dshp-dock[data-theme="dusk"] .rt-rep-s
 			}, [applyUpdateInfo]);
 
 			const doUpdate = useCallback((id) => {
-				const lane = id === "beta" ? "beta" : "stable";
-				postUpdate({ op: "apply", ref: lane === "beta" ? "beta" : "master", channel: lane }, "done", id).catch(() => {});
-			}, [postUpdate]);
+				postUpdate(channelUpdateRequest(id, updateInfo), "done", id).catch(() => {});
+			}, [postUpdate, updateInfo]);
 
 			const changeChannel = useCallback((next) => {
 				if (!next) return;
@@ -2142,7 +2141,7 @@ body[data-ds-dark-theme] .rt-rep-step-no,.dshp-dock[data-theme="dusk"] .rt-rep-s
 							? list.map((item) => h("option", {
 								key: item.ref + (item.sha || ""),
 								value: item.ref,
-							}, versionChoiceLabel(item, t)))
+							}, versionChoiceLabel(item, t, list)))
 							: h("option", { value: "" }, noBeta ? t("update.noBeta") : t("update.pick")),
 					),
 					h(Btn, { tiny: true, kind: actionKind, disabled: actionDisabled, onClick: actionClick }, actionLabel),
@@ -2589,7 +2588,7 @@ body[data-ds-dark-theme] .rt-rep-step-no,.dshp-dock[data-theme="dusk"] .rt-rep-s
 		}
 
 		function preferListed(list, localVer, pin) {
-			const pinned = pin ? (list || []).find((item) => item.ref === pin) : null;
+			const pinned = pin ? (list || []).find((item) => item.ref === pin || (item.aliases || []).includes(pin)) : null;
 			if (pinned) return pinned;
 			const ver = String(localVer || "").replace(/^v/i, "");
 			const same = (list || []).filter((item) => ver && String(item.version || "").replace(/^v/i, "") === ver);
@@ -2604,12 +2603,22 @@ body[data-ds-dark-theme] .rt-rep-step-no,.dshp-dock[data-theme="dusk"] .rt-rep-s
 				|| null;
 		}
 
-		function versionChoiceLabel(item, tr) {
+		function versionChoiceLabel(item, tr, list) {
 			const ver = String((item && item.version) || "").replace(/^v/i, "");
-			const base = ver ? ("v" + ver) : ((item && (item.label || item.ref)) || "—");
+			let base = ver ? ("v" + ver) : ((item && (item.label || item.ref)) || "—");
+			if (ver && item.sha && (list || []).some((other) => other !== item && String(other.version || "").replace(/^v/i, "") === ver && other.sha && other.sha !== item.sha)) {
+				base += " (" + item.sha.slice(0, 7) + ")";
+			}
 			if (item && item.current) return base + " · " + tr("update.current");
 			if (item && item.latest) return base + " · " + tr("update.tip");
 			return base;
+		}
+
+		function channelUpdateRequest(id, info) {
+			const channel = id === "beta" ? "beta" : "stable";
+			const lane = info && info.lanes && info.lanes[channel];
+			const ref = (lane && lane.ref) || (channel === "beta" ? "beta" : "");
+			return Object.assign({ op: "apply", channel }, ref ? { ref } : {});
 		}
 
 		function SkillsSection() {

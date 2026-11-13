@@ -4,13 +4,13 @@
 装插件和应用补丁是两步：本页只做第一步，第二步必须在目标宿主里点「清洗 → 应用」。
 
 > **仓库地址**：`HunYiSage/dsh-purge` 已下架（2026-11-13 实测仓库页与 codeload 都是 404）。
-> 现役仓库是 **`keyblues/dsh-purge`，默认分支 `main`，当前版本 1.1.94**。
+> 现役仓库是 **`keyblues/dsh-purge`，默认分支 `main`，当前版本 1.1.95**。
 > 网上旧教程、仓库 README 里的团队说明/署名段落仍写着 HunYiSage，按地址算一律作废，只认
 > `codeload.github.com/keyblues/dsh-purge/tar.gz/refs/heads/main`。本仓库 `package.json`
 > 的 `dsh.install` 与三份 README 的安装命令都已是 keyblues/main。
 
 - 官方 `dsh web` 和官方桌面 EXE **分开装、分开应用**，补丁各写各的 `@deepseek-ai`。
-- 1.1.94 适配 DSH 0.2.2-rc.1，保留 0.2.1-rc.5 / rc.2；详细验证范围见 [适配记录](dsh-0.2.2-rc.1.md)。CLI / Web 需要 Node.js 24.9.0 或更新版本，官方桌面端使用自带运行时。
+- 1.1.95 适配 DSH 0.2.2-rc.1，保留 0.2.1-rc.5 / rc.2；详细验证范围见 [适配记录](dsh-0.2.2-rc.1.md)。CLI / Web 需要 Node.js 24.9.0 或更新版本，官方桌面端使用自带运行时。
 
 ---
 
@@ -38,8 +38,8 @@ Get-ChildItem "$env:USERPROFILE\.dsh\profiles" -Directory | ForEach-Object {
 
 | 目标宿主 | 用哪个版本 |
 |---|---|
-| 0.2.2-rc.1 | 1.1.94（当前 main） |
-| 0.2.1-rc.2 / 0.2.1-rc.5 | 1.1.94 保留兼容，已检查相关 npm 文件 |
+| 0.2.2-rc.1 | 1.1.95（当前 main） |
+| 0.2.1-rc.2 / 0.2.1-rc.5 | 1.1.95 保留兼容，已检查相关 npm 文件 |
 | 0.2.0-rc.2 | 历史版本从 1.1.40 开始支持；未纳入本次回归 |
 | 0.1.7（含 rc.1/rc.2） | ≤ 1.1.39，去 Releases 选标签 |
 | 0.2.1-rc.3 / rc.4、其他未列出的版本 | 不视为当前已完整验证，先运行只读兼容检查 |
@@ -84,19 +84,19 @@ node node_modules\dsh-purge\scripts\ensure-profile-bundle.mjs
 
 ## 3. 目标机器离线 / 内网：拷一个文件过去
 
-在仓库根运行 `npm pack --pack-destination dist` 可生成 `dist/dsh-purge-1.1.94.tgz`，含 `cordis.patch.yml`、`lib/` 与 `postinstall`。把它拷到目标机器，按目标宿主选择安装方式：
+在仓库根运行 `npm pack --pack-destination dist` 可生成 `dist/dsh-purge-1.1.95.tgz`，含 `cordis.patch.yml`、`lib/` 与 `postinstall`。把它拷到目标机器，按目标宿主选择安装方式：
 
 ```powershell
 # a) 有 npm dsh：Web profile 可直接使用本地包
-dsh plugin --profile web add .\dsh-purge-1.1.94.tgz
+dsh plugin --profile web add .\dsh-purge-1.1.95.tgz
 
 # b) 只有 pnpm：进 profile 再装
 cd "$env:USERPROFILE\.dsh\profiles\desktop"
-pnpm add --allow-build=dsh-purge .\dsh-purge-1.1.94.tgz
+pnpm add --allow-build=dsh-purge .\dsh-purge-1.1.95.tgz
 node node_modules\dsh-purge\scripts\ensure-profile-bundle.mjs
 
 # c) 都不放心，用仓库自带脚本整目录铺开（最稳，不依赖 pnpm）
-powershell -ExecutionPolicy Bypass -File .\install-other-dsh.ps1 -FromTarball .\dsh-purge-1.1.94.tgz -ProfileName desktop
+powershell -ExecutionPolicy Bypass -File .\install-other-dsh.ps1 -FromTarball .\dsh-purge-1.1.95.tgz -ProfileName desktop
 ```
 
 脚本 `scripts/install-other-dsh.ps1` 做四件事（全是加法，写前备份 `package.json`）：
@@ -149,10 +149,12 @@ Invoke-WebRequest 'https://codeload.github.com/keyblues/dsh-purge/tar.gz/refs/he
 
 ## 6. 常见坑
 
+- **旧版本更新报“未知版本”或下拉框显示两个相同版本**：1.1.93 / 1.1.94 的“更新”按钮仍发送 master，而正式版已经迁到 main。选择最新版本后点“切换到此版本”，或使用第 3 节离线安装脚本更新到 1.1.95；新版会合并同一提交的分支与标签。
+
 - **按钮不出现**：先看 `dump-config` 有没有 insert；缺就重跑 `ensure-profile-bundle.mjs`，再完全退出重开。开头几条 `entry "redteam-store" not found` 是旧红队包不在，忽略。
 - **市场说 already queued**：先 `dsh plugin --profile desktop remove dsh-purge`，再用第 1 节命令装。
 - **桌面端 `resources\app.asar` 还在**：官方壳读 asar，补丁写进解开的 `resources\app` 也读不到。此时点「应用」会走解包 + 挪走 asar + 重启（`lib/core.js` 那条路），别自己手动删。
-- **补丁成片 `drifted`**：先确认已安装的插件版本；1.1.93 在 0.2.2-rc.1 上存在失配，应更新到 1.1.94。其他未列出的宿主版本先按 [适配记录](dsh-0.2.2-rc.1.md) 运行只读检查。
+- **补丁成片 `drifted`**：先确认已安装的插件版本；1.1.93 在 0.2.2-rc.1 上存在失配，应更新到 1.1.95。其他未列出的宿主版本先按 [适配记录](dsh-0.2.2-rc.1.md) 运行只读检查。
 - **两个宿主都装**：`web` 和 `desktop` 各写各的 `@deepseek-ai`，分别在各自界面点「应用」，不要在一个里面点另一个的。
 - **卸载**：`dsh-purge --uninstall`（先还原再删），或界面里卸载。
 
@@ -164,7 +166,7 @@ Invoke-WebRequest 'https://codeload.github.com/keyblues/dsh-purge/tar.gz/refs/he
 > 没有 `dsh` 只有 pnpm 就进 `$DSH_HOME/profiles/<web|desktop>` 跑
 > `pnpm add --allow-build=dsh-purge https://codeload.github.com/keyblues/dsh-purge/tar.gz/refs/heads/main`，
 > 再跑 `node node_modules/dsh-purge/scripts/ensure-profile-bundle.mjs`。
-> 离线机器用手里的 `dsh-purge-1.1.94.tgz`：Web 端可运行 `dsh plugin --profile web add .\dsh-purge-1.1.94.tgz`，或直接跑
-> `install-other-dsh.ps1 -FromTarball .\dsh-purge-1.1.94.tgz -ProfileName <web|desktop>`。
+> 离线机器用手里的 `dsh-purge-1.1.95.tgz`：Web 端可运行 `dsh plugin --profile web add .\dsh-purge-1.1.95.tgz`，或直接跑
+> `install-other-dsh.ps1 -FromTarball .\dsh-purge-1.1.95.tgz -ProfileName <web|desktop>`。
 > 不要走插件市场，不要 `pnpm add dsh-purge`，不要用已经 404 的 HunYiSage 地址，不要改其它文件，不要点应用，不要重启。
 > 完成后提醒我：完全退出重开宿主 → 点会话标题旁 dsh-purge →「清洗」→「应用」→ `/purge status`。
