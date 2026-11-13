@@ -4,7 +4,7 @@
 
 <h1 align="center">⚔️ DeepSeek Harness サイバーセキュリティ レッドチームツール (dsh-purge)</h1>
 
-<p align="center"><strong>バージョン 1.1.90</strong></p>
+<p align="center"><strong>バージョン 1.1.94</strong></p>
 
 <p align="center">
   <em>DeepSeek Harness のジェイルブレイク: すべてのモデルに対応し、モデルごとにプロンプトを切り替え。デフォルトプロンプトは 小码酱 用。ぜひ Star ⭐ を。これをベースに開発する場合は「要帰属表示」をご覧ください。</em>
@@ -15,9 +15,9 @@
   <a href="https://github.com/HunYiSage/dsh-purge/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue?style=flat" alt="Apache-2.0"></a>
   <a href="https://awesome-dsh-plugin.com"><img src="https://awesome-dsh-plugin.com/badge.svg" alt="awesome · DSH plugin"></a>
   <a href="https://deepseek.stream/plugins/dsh-purge"><img src="https://img.shields.io/badge/Hub-dsh--purge-1a73e8" alt="DeepSeek Harness Hub"></a>
-  <a href="https://www.deepseek.com/harness/"><img src="https://img.shields.io/badge/dsh-0.2.0--rc.2%20%2F%200.2.1--rc.2-blue" alt="DSH"></a>
+  <a href="https://www.deepseek.com/harness/"><img src="https://img.shields.io/badge/dsh-0.2.2--rc.1%20%2F%200.2.1--rc.5%20%2F%20rc.2-blue" alt="DSH"></a>
   <br>
-  <img src="https://img.shields.io/badge/Node.js-%3E%3D18-339933?logo=node.js&logoColor=fff" alt="Node.js">
+  <img src="https://img.shields.io/badge/Node.js-%3E%3D24.9.0-339933?logo=node.js&logoColor=fff" alt="Node.js">
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000" alt="JavaScript">
 </p>
 
@@ -61,7 +61,7 @@ dsh-purge は当初、原作者が個人で開発したプロジェクトです�
 
 ## これは何か
 
-**dsh-purge** は、お使いのマシンにすでにインストールされている公式 [DeepSeek Harness](https://www.deepseek.com/harness/) 向けのサイバーセキュリティ レッドチームプラグインです。**1.1.90** は **DSH 0.2.1-rc.2** を対象とします（0.2.0 も動作します）。**DSH 0.2.1-rc.3 以降の新しい RC は非対応です。** 公式 **Web**（`dsh web`）と公式 **デスクトップ EXE** の両方に対応します。インストールと Apply はそれぞれ別々に行います。
+**dsh-purge** は、お使いのマシンにインストールされている公式 [DeepSeek Harness](https://www.deepseek.com/harness/) 向けのサイバーセキュリティ レッドチームプラグインです。**1.1.94** は **DSH 0.2.2-rc.1** を対象とし、**0.2.1-rc.5 / rc.2** との互換性を維持します。公式 **Web**（`dsh web`）と **デスクトップ EXE** は別々にインストール・Apply してください。変更点と検証範囲は [互換性の記録](docs/dsh-0.2.2-rc.1.md) を参照してください。
 
 Harness は単にプロンプトを転送するだけではありません。プロンプトの書き換え、承認ゲート、サンドボックスポリシー、セッション移行を実行時に行います。「モデルは答えるか」だけを問うと、ホスト層のブロックをモデルの拒否と取り違えてしまいます。このプラグインは、あなた自身のインストール環境でこの 2 つの層を分離し、制御された評価や、どのデフォルトポリシーが過度に厳しいかを確認するために使います。
 
@@ -135,14 +135,15 @@ Harness は単にプロンプトを転送するだけではありません。プ
 
 ## 対応ホスト
 
-**1.1.81 以降が DSH 0.2.1-rc.2 を対象とします。** 0.2.0 も動作します。0.1.x には適用しないでください。
+**1.1.94 の主な対象は DSH 0.2.2-rc.1 です。** CLI / Web には Node.js **24.9.0 以降**が必要です。公式デスクトップ版には実行環境が付属します。
 
-- **dsh 0.2.1-rc.2**（公式デスクトップ / 公式 `dsh web`）: **1.1.81** 以降を使用。`{{cwd}}` / `[cwd]` クラッシュ、patch #40 のマッチ、削除された `toolFilter`、ホスト `dsh-tools` の解決、hostFs の fd、デスクトップヘルパーの自己終了、`file:` アーカイブ更新、Ctrl+Enter ステアを修正。
-- **dsh 0.2.0-rc.2**: **1.1.40** 以降を使用。このラインもインストールできます。
+- **dsh 0.2.2-rc.1**: プロンプト組み立て、ToolSet の解放、分離されたツールパイプライン、PTC 実行器、成果物ガイダンスに対応。公式デスクトップ配布物と隔離した npm Web ホストで確認しました。
+- **dsh 0.2.1-rc.5 / rc.2**: 旧レイアウトを維持。公式 npm ファイルでパッチ、構文、再適用を検証しました。
+- **dsh 0.2.0-rc.2**: 過去の対応範囲です。今回の回帰検証には含めていません。対応する旧版のリリース情報を参照してください。
 - **dsh 0.1.7**（rc.1 / rc.2 を含む）: **1.1.39** 以前を使用 — [Releases](https://github.com/HunYiSage/dsh-purge/releases) で該当タグを選択。
-- **dsh 0.2.1-rc.3 / rc.4 以降は非対応です。** マッチしないパッチは pending または skipped のままで、盲目的な書き換えはしません。**0.2.1-rc.2** に留まってください。
+- **記載のないホストバージョンは未検証です。** `npm run check:compat -- --base <公式 @deepseek-ai ディレクトリ>` は、ホストファイルを書き換えずにパッチを検査します。
 
-マッチしないパッチは pending または skipped のままで、盲目的な書き換えはしません。
+上流コードの変更は `drifted`、任意コンポーネントの不在は `missing_file` と表示します。詳細は [互換性の記録](docs/dsh-0.2.2-rc.1.md) を参照してください。
 
 ---
 

@@ -4,7 +4,7 @@
 
 <h1 align="center">⚔️ DeepSeek Harness cybersecurity red-team tool (dsh-purge)</h1>
 
-<p align="center"><strong>Version 1.1.90</strong></p>
+<p align="center"><strong>Version 1.1.94</strong></p>
 
 <p align="center">
   <em>DeepSeek Harness jailbreak: every model, swap prompts per model. Default prompt for 小码酱. Please star ⭐ If you build on this, see Attribution required.</em>
@@ -15,9 +15,9 @@
   <a href="https://github.com/HunYiSage/dsh-purge/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue?style=flat" alt="Apache-2.0"></a>
   <a href="https://awesome-dsh-plugin.com"><img src="https://awesome-dsh-plugin.com/badge.svg" alt="awesome · DSH plugin"></a>
   <a href="https://deepseek.stream/plugins/dsh-purge"><img src="https://img.shields.io/badge/Hub-dsh--purge-1a73e8" alt="DeepSeek Harness Hub"></a>
-  <a href="https://www.deepseek.com/harness/"><img src="https://img.shields.io/badge/dsh-0.2.0--rc.2%20%2F%200.2.1--rc.2-blue" alt="DSH"></a>
+  <a href="https://www.deepseek.com/harness/"><img src="https://img.shields.io/badge/dsh-0.2.2--rc.1%20%2F%200.2.1--rc.5%20%2F%20rc.2-blue" alt="DSH"></a>
   <br>
-  <img src="https://img.shields.io/badge/Node.js-%3E%3D18-339933?logo=node.js&logoColor=fff" alt="Node.js">
+  <img src="https://img.shields.io/badge/Node.js-%3E%3D24.9.0-339933?logo=node.js&logoColor=fff" alt="Node.js">
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000" alt="JavaScript">
 </p>
 
@@ -78,7 +78,7 @@ Official channels: this repository's [Issues](https://github.com/HunYiSage/dsh-p
 
 ## What this is
 
-**dsh-purge** is a cybersecurity red-team plugin for the official [DeepSeek Harness](https://www.deepseek.com/harness/) already installed on your machine. **1.1.90** targets **DSH 0.2.1-rc.2** (0.2.0 still works). **DSH 0.2.1-rc.3 and newer RCs are not supported.** Official **Web** (`dsh web`) and the official **desktop EXE** are both supported. Install and Apply them separately.
+**dsh-purge** is a cybersecurity red-team plugin for the official [DeepSeek Harness](https://www.deepseek.com/harness/) already installed on your machine. **1.1.94** targets **DSH 0.2.2-rc.1** and retains **0.2.1-rc.5 / rc.2** compatibility. Install and Apply the official **Web** (`dsh web`) and **desktop EXE** separately. See the [compatibility notes](docs/dsh-0.2.2-rc.1.md) for changes and validation scope.
 
 Harness does more than forward a prompt. It rewrites prompts, approval gates, sandbox policy, and session migration at runtime. Asking only “will the model answer” treats a host-layer block as a model refusal. This plugin separates those two layers on your own install, for controlled evaluation and for seeing which default policy is too tight.
 
@@ -151,14 +151,15 @@ This repo is [Apache License 2.0](./LICENSE). Forks and redistributions must kee
 
 ## Supported hosts
 
-**1.1.81 and newer target DSH 0.2.1-rc.2.** 0.2.0 still works. Do not apply it to 0.1.x.
+**1.1.94 targets DSH 0.2.2-rc.1.** CLI / Web requires Node.js **24.9.0 or newer**; the official desktop application supplies its runtime.
 
-- **dsh 0.2.1-rc.2** (official desktop / official `dsh web`): use **1.1.81** or newer. Fixes `{{cwd}}` / `[cwd]` crash, patch #40 match, dropped `toolFilter`, host `dsh-tools` resolve, hostFs fd, desktop helper self-kill, `file:` archive update, Ctrl+Enter steer.
-- **dsh 0.2.0-rc.2**: use **1.1.40** or newer; this line also installs.
+- **dsh 0.2.2-rc.1**: adapts prompt assembly, ToolSet lifetime, the split tool pipeline, PTC executor, and deliverable guidance. Checked against the official desktop archive and an isolated npm Web host.
+- **dsh 0.2.1-rc.5 / rc.2**: retains legacy layouts; official npm files pass patch simulation, syntax and repeat-application checks.
+- **dsh 0.2.0-rc.2**: historical support, outside this regression matrix; consult the corresponding older release notes.
 - **dsh 0.1.7** (incl. rc.1 / rc.2): use **1.1.39** or older — pick the tag on [Releases](https://github.com/HunYiSage/dsh-purge/releases).
-- **dsh 0.2.1-rc.3 / rc.4 and newer are not supported.** Unmatched patches stay pending or skipped; nothing is rewritten blindly. Stay on **0.2.1-rc.2**.
+- **Unlisted host versions are unverified.** Run `npm run check:compat -- --base <official @deepseek-ai directory>` to simulate patches without modifying host files.
 
-Unmatched patches stay pending or skipped; nothing is rewritten blindly.
+Changed upstream source appears as `drifted`; absent optional components appear as `missing_file`. See the [compatibility notes](docs/dsh-0.2.2-rc.1.md) for the full commands.
 
 ---
 

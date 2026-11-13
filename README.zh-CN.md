@@ -4,7 +4,7 @@
 
 <h1 align="center">⚔️ DeepSeek Harness 网络安全红队工具（dsh-purge）</h1>
 
-<p align="center"><strong>Version 1.1.90</strong></p>
+<p align="center"><strong>Version 1.1.94</strong></p>
 
 <p align="center">
   <em>DeepSeek Harness 破甲：让所有模型都能破甲，不同模型可换不同提示词；默认提示词面向国模「小码酱」。Jailbreak for every model — swap prompts per model. 求 Star 收藏 ⭐ 如要二开，请查看署名要求部分</em>
@@ -15,9 +15,9 @@
   <a href="https://github.com/HunYiSage/dsh-purge/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue?style=flat" alt="Apache-2.0"></a>
   <a href="https://awesome-dsh-plugin.com"><img src="https://awesome-dsh-plugin.com/badge.svg" alt="awesome · DSH plugin"></a>
   <a href="https://deepseek.stream/plugins/dsh-purge"><img src="https://img.shields.io/badge/Hub-dsh--purge-1a73e8" alt="DeepSeek Harness Hub"></a>
-  <a href="https://www.deepseek.com/harness/"><img src="https://img.shields.io/badge/dsh-0.2.0--rc.2%20%2F%200.2.1--rc.2-blue" alt="DSH"></a>
+  <a href="https://www.deepseek.com/harness/"><img src="https://img.shields.io/badge/dsh-0.2.2--rc.1%20%2F%200.2.1--rc.5%20%2F%20rc.2-blue" alt="DSH"></a>
   <br>
-  <img src="https://img.shields.io/badge/Node.js-%3E%3D18-339933?logo=node.js&logoColor=fff" alt="Node.js">
+  <img src="https://img.shields.io/badge/Node.js-%3E%3D24.9.0-339933?logo=node.js&logoColor=fff" alt="Node.js">
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000" alt="JavaScript">
 </p>
 
@@ -78,7 +78,7 @@ dsh-purge 最初由原作者独立开发。项目现已由 **dsh-purge 维护团
 
 ## 介绍
 
-**dsh-purge** 是装在本机官方 [DeepSeek Harness](https://www.deepseek.com/harness/) 上的网络安全红队评测插件。当前 **1.1.90** 已适配 **DSH 0.2.1-rc.2**（0.2.0 仍可用）。**不支持 DSH 0.2.1-rc.3 及更新的 rc。** 官方 **Web**（`dsh web`）和官方 **桌面端**（EXE）都支持，两边分开装、分开应用。
+**dsh-purge** 是装在本机官方 [DeepSeek Harness](https://www.deepseek.com/harness/) 上的网络安全红队评测插件。当前 **1.1.94** 适配 **DSH 0.2.2-rc.1**，保留 **0.2.1-rc.5 / rc.2** 兼容。官方 **Web**（`dsh web`）和官方 **桌面端**（EXE）分开安装、分开应用。具体改动、验证范围和离线检查命令见 [0.2.2-rc.1 适配记录](docs/dsh-0.2.2-rc.1.md)。
 
 Harness 不只是把问题交给模型。它还会在运行时改提示词、审批门、沙箱和会话格式。只看「模型答不答」，会把宿主拦截误当成模型拒绝。这个插件在你自己的安装里把这两层分开，用来做受控评测，也用来看默认策略该不该收紧。
 
@@ -153,14 +153,15 @@ Harness 不只是把问题交给模型。它还会在运行时改提示词、审
 
 ## 适配范围
 
-**1.1.81 及更高版本适配 DSH 0.2.1-rc.2**，0.2.0 仍可用。不要拿它去打 0.1.x。
+**1.1.94 的主适配版本为 DSH 0.2.2-rc.1。** CLI / Web 需要 Node.js **24.9.0 或更新版本**；官方桌面端使用自带运行时。
 
-- **dsh 0.2.1-rc.2**（官方桌面 / 官方 `dsh web`）：用 **1.1.81** 或更高。已修 `{{cwd}}` / `[cwd]` 整轮失败、补丁 #40 命中、`toolFilter` 废弃、`dsh-tools` 解析、hostFs fd、桌面换包自杀、`file:` 归档更新、Ctrl+Enter 插话。
-- **dsh 0.2.0-rc.2**：用 **1.1.40** 及以上；本页这档也能装。
+- **dsh 0.2.2-rc.1**：适配新版提示词组装、ToolSet 生命周期、拆分后的工具流水线、PTC 执行器与交付物提示词。已检查官方桌面发布包，并在隔离的 npm Web 宿主验证加载和接口。
+- **dsh 0.2.1-rc.5 / rc.2**：保留旧布局，已对官方 npm 文件执行补丁、语法和重复应用回归。
+- **dsh 0.2.0-rc.2**：属于历史支持范围，未纳入本次回归；请按对应旧版发布说明选择插件。
 - **dsh 0.1.7**（含 rc.1 / rc.2）：用 **1.1.39** 及更早 —— 在 [Releases](https://github.com/HunYiSage/dsh-purge/releases) 里选对应标签。
-- **不支持 dsh 0.2.1-rc.3 / rc.4 及更新。** 宿主对不上时补丁会显示待应用或跳过，不会乱改文件。请退回 **0.2.1-rc.2** 再用本插件。
+- **未列出的宿主版本不视为已验证。** 新增 `npm run check:compat -- --base <官方 @deepseek-ai 目录>`，只在内存中模拟补丁并检查漂移，不写入宿主文件。
 
-对不上的补丁会显示待应用或跳过，不会乱改文件。
+上游原文变化会显示 `drifted`；缺少可选组件会显示 `missing_file`。完整检查方式见 [适配记录](docs/dsh-0.2.2-rc.1.md)。
 
 ---
 

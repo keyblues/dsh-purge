@@ -1,3 +1,24 @@
+# 1.1.94
+
+## 中文
+
+- 主适配版本更新为 **DSH 0.2.2-rc.1**，保留 **0.2.1-rc.5 / rc.2**；Node.js 最低版本与新版 DSH 对齐为 **24.9.0**。
+- 修复补丁 #40 在新版提示词组装返回结构上的失配：保留 provider 提供的工具集合，以及禁用可选运行时上下文时仍必需的上下文。
+- 工具审批改为命中 `dsh-tools/lib/pipeline.js` 与 `lib/types/pipeline.js`；PTC 改为命中 `dsh-tool-executor-ptc`；交付物提示词改为命中 `dsh-deliverable-file-references`。每份 npm 副本各自选择新旧入口，保留旧布局和嵌套布局兼容。
+- 补充新版 AgentLoop 的 preStep 和 messages 处理、`escalationDisplayReason`、共用 `requirePresent` 的 editIntent、桌面壳 import 布局。保留 ToolSet 的释放路径。
+- 修复重复 Apply：桌面退出日志 #92 / #93 不再重复注入；hooks #30 / #31 不再改写 #65 已处理的分支。
+- 新增只读 `npm run check:compat -- --base <@deepseek-ai 目录>` 和 10 项行为回归测试，发布流程会执行测试。适配记录见 [docs/dsh-0.2.2-rc.1.md](docs/dsh-0.2.2-rc.1.md)。
+- 离线安装脚本保留 UTF-8 BOM，修复 Windows PowerShell 5.1 对中文脚本的解析错误；从仓库复制时排除 `.scratch` 和 `dist`。已用生成的 tgz 安装到隔离 desktop profile，四项安装检查通过。
+- 验证：官方桌面归档、完整 npm Web 安装和 rc.5 / rc.2 的相关 npm 包均无补丁漂移、语法或重复应用错误；隔离 Web 宿主成功加载插件和页面，64 个演练台工具通过真实 Cordis 4.1.0 注册检查。未执行真实桌面升级/重启或外部模型请求。
+
+## English
+
+- Target **DSH 0.2.2-rc.1**, retain **0.2.1-rc.5 / rc.2**, and align the Node.js minimum with DSH at **24.9.0**.
+- Preserve provider-owned tools and required runtime context in prompt assembly; adapt AgentLoop without changing ToolSet disposal.
+- Resolve the split tool pipeline, PTC executor and deliverable guidance, with fallback for legacy and nested package layouts. Cover the new escalation display helper, observation edit entry and desktop import layout.
+- Make desktop exit tracing and interdependent hooks stable on repeated Apply.
+- Add a read-only compatibility probe and 10 behavioral regression tests, run by the release workflow. Validate real desktop/npm artifacts and an isolated Web UI; no live desktop restart or external model request was performed.
+
 # 1.1.93
 
 ## 中文

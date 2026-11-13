@@ -1,5 +1,6 @@
 # 不上传
 node_modules/
+/dist/
 *.tgz
 npm-debug.log*
 *.log

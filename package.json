@@ -1,6 +1,6 @@
 {
   "name": "dsh-purge",
-  "version": "1.1.93",
+  "version": "1.1.94",
   "description": "DeepSeek Harness 破甲：让所有模型都能破甲，不同模型可换不同提示词；默认提示词面向国模「小码酱」。Jailbreak for every model — swap prompts per model. 求 Star 收藏 ⭐ 如要二开，请查看署名要求部分",
   "author": "dsh-purge maintainers",
   "type": "module",
@@ -36,6 +36,8 @@
     "NOTICE"
   ],
   "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "check:compat": "node scripts/check-compat.mjs",
     "embed-prompt": "node scripts/embed-default-prompt.mjs",
     "build:client": "node scripts/build-client.mjs",
     "postinstall": "node scripts/ensure-profile-bundle.mjs"
@@ -93,10 +95,11 @@
     "@deepseek-ai/cordis": "^4.0.1"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=24.9.0"
   },
-  "dshTarget": "0.2.1-rc.5",
+  "dshTarget": "0.2.2-rc.1",
   "dshTargets": [
+    "0.2.2-rc.1",
     "0.2.1-rc.5",
     "0.2.1-rc.2"
   ]

@@ -22,11 +22,19 @@ jobs:
         with:
           fetch-depth: 0
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.9.0'
+
+      - name: Compatibility regression tests
+        run: npm test
+
       - name: Syntax-check plugin entry
         run: |
           node --check lib/index.js
           node --check lib/core.js
           node --check lib/reapply.js
+          node --check scripts/check-compat.mjs
           node --input-type=module -e "import './lib/index.js'"
 
       - name: Publish GitHub Release
