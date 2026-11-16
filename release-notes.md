@@ -1,3 +1,22 @@
+# 1.1.96
+
+## 中文
+
+- **修复桌面更新后重启出现 `dsh desktop host stopped`**：换包助手启动后，宿主不再在 1.5 / 2 秒后自行退出；已解包模式也取消助手接管前的 250 毫秒退出。外部助手统一负责停止应用、切换归档和重新启动，避免助手启动较慢或失败时被桌面壳误报崩溃。
+- **Windows 优先使用独立 Node 助手**：本机复现了 PowerShell 在 `detached: true` 下不执行命令的行为；可用的 Node 运行时负责换包，缺少独立 Node 时保留不带该标志的隐藏 PowerShell 后备路径。
+- **先停止桌面壳，再停止宿主**：PowerShell 与 Node 助手按父子进程关系排序，不再假定没有 `--type` 参数的进程都是桌面壳；安装路径过滤保留，同名前缀的其他安装不会被选中。
+- **失败可诊断、可恢复**：助手启动错误、退出状态及标准输出/错误写入 `dsh-purge-desktop.log`。换包前检查安装路径和解包入口；进程枚举失败时保留当前应用；停止后换包失败则尝试重新打开原安装。PowerShell 临时脚本带 UTF-8 BOM，兼容 Windows PowerShell 5.1 与中文路径。
+- 新增 11 项桌面重启回归测试，覆盖助手缓慢/失败、解包模式、停止顺序、中文路径、真实 PowerShell 启动、WMI 不可用、缺失入口、错误归档路径、已退出进程的残留句柄以及归档占用恢复。Windows 本机共 29 项测试通过。
+- **本机实测**（2026-11-16，官方 Windows 桌面 0.2.2-rc.1）：已完成真实 `app.asar → app.asar.bak` 切换，再从插件面板执行“应用 → 现在重启”；两条路径均重新打开桌面，实际加载 `resources/app`，没有新增崩溃报告。Web 的补丁兼容检查通过；macOS / Linux 未做本次实机重启验证。
+
+## English
+
+- Fix `dsh desktop host stopped` during desktop restart after an update. The host no longer exits on a short timer while the external restart worker is still starting; the worker owns shutdown, archive switching, and relaunch.
+- Prefer a standalone Node worker on Windows, with a hidden PowerShell fallback that avoids `DETACHED_PROCESS`.
+- Stop the Electron shell before its host using parent process IDs. Keep installation path boundaries and add persistent worker diagnostics, unpacked-entry validation, and relaunch recovery after archive failures.
+- Add eleven restart regression tests, including actual Windows PowerShell execution against isolated fixtures with mocked process operations. All 29 tests pass on Windows.
+- Verified real archive switching and a subsequent plugin-panel restart on Windows desktop 0.2.2-rc.1. Both relaunch into `resources/app` without new crash reports. macOS and Linux restarts were not tested on real machines in this release.
+
 # 1.1.95
 
 ## 中文

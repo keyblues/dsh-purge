@@ -4,6 +4,10 @@
 
 后续 **1.1.95** 修复了更新列表将同一提交的 main / tag 显示两次，以及旧“更新”按钮仍请求 master 的问题。下面的适配测试和截图记录初始 1.1.94；当前安装方法见 [安装说明](install-other-dsh.md)。
 
+**1.1.96** 继续修复真实桌面重启链路：换包助手接管前不再让宿主自行定时退出；Windows 优先使用独立 Node 助手，保留隐藏 PowerShell 后备路径；按父子进程关系先停止桌面壳，补充助手日志、解包入口检查和换包失败恢复。新增 Windows PowerShell 实际执行测试，进程操作使用隔离夹具，覆盖中文路径和失败分支。
+
+2026-11-16 已在本机官方 Windows 桌面 **0.2.2-rc.1** 上验证真实归档切换和后续插件面板的“应用 → 现在重启”。原 `app.asar` 保留为 `app.asar.bak`，新进程确实加载 `resources/app`；插件面板显示 **v1.1.96、68 / 70、跳过 2**，两次重启没有生成新的崩溃报告。此结果补充了下面初始 1.1.94 验证未覆盖的桌面重启部分，不代表完成真实模型调用或 macOS / Linux 实机验证。
+
 验证日期：2026-11-13。npm 的 `latest` 为 `0.2.2-rc.1`，`next` 为 `0.2.2-rc.3`；后者未纳入本次验证。CLI / Web 需要 Node.js **24.9.0 或更新版本**，官方桌面端使用自带运行时。
 
 ## 上游依据
@@ -62,17 +66,17 @@
 
 生成的 tgz 还通过了 Windows PowerShell 5.1 下的实际离线安装测试：独立 desktop profile 的 dependencies、bundles、包链接和本体 insert 四项检查通过。安装脚本补充 UTF-8 BOM，避免 Windows PowerShell 5.1 把中文误解码后产生字符串解析错误；仓库复制排除 `.scratch` 和 `dist`。
 
-未验证真实模型 API 请求、真实桌面端归档切换与重启，以及 macOS / Linux 的实机流程。这些边界不由补丁匹配或语法检查代替。
+以上 1.1.94 的初始验证未覆盖真实模型 API 请求、真实桌面端归档切换与重启，以及 macOS / Linux 的实机流程。这些边界不由补丁匹配或语法检查代替。
 
 ## 安装本地构建
 
-仓库根执行 `npm pack --pack-destination dist` 可按当前 package.json 的版本生成安装包，当前为 `dist/dsh-purge-1.1.95.tgz`。
+仓库根执行 `npm pack --pack-destination dist` 可按当前 package.json 的版本生成安装包，当前为 `dist/dsh-purge-1.1.96.tgz`。
 
 本机桌面端可使用仓库已有的离线安装脚本。它会复制安装包、配置 profile 并建立链接；之后再由使用者在插件面板点 Apply。
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\install-other-dsh.ps1 `
-  -FromTarball .\dist\dsh-purge-1.1.95.tgz `
+  -FromTarball .\dist\dsh-purge-1.1.96.tgz `
   -ProfileName desktop
 ```
 
