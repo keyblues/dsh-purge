@@ -14,7 +14,19 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  windows-checks:
+    if: github.repository == 'keyblues/dsh-purge'
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.9.0'
+      - name: Windows compatibility and restart tests
+        run: npm test
+
   release:
+    needs: windows-checks
     if: github.repository == 'keyblues/dsh-purge'
     runs-on: ubuntu-latest
     steps:

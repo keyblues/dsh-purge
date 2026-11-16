@@ -1,3 +1,22 @@
+# 1.1.97
+
+## 中文
+
+- **适配 DSH 0.2.2-rc.3**，保留 0.2.2-rc.1、0.2.1-rc.5 / rc.2 兼容。修复权限升级、重复工具提醒、回退界面和工具确认六处失配。
+- 支持 rc.3 压缩后的会话界面：只隐藏撤回轮次，回退标记追加时立即更新窗口，保留此前历史、系统消息及普通追加/去重。
+- 适配新的结构化错误，保留任务中止以及工具确认的明确拒绝、取消和错误码；执行文件和类型侧运行文件同时覆盖。
+- **修复官方 Windows 升级返回旧版本**：助手和安装器从临时目录运行，避免工作目录句柄阻止安装根目录替换。本机使用同一个官方 rc.3 安装包重试，安装器已返回 0 并替换新版本。
+- 新增 10 项行为/更新测试，Windows 本机共 **39 项测试通过**。rc.3 桌面与完整 npm Web 发布文件无漂移、无语法错误，重复 Apply 稳定；隔离 Web 宿主启动、三个主工具、14 个接口和 64 个演练工具注册通过。
+- 本机官方 rc.3 桌面升级、补丁应用与重启验证通过；实际插件面板为 **68/70、跳过 2、无漂移、无待应用**，代码补丁 **42/42**，没有新增崩溃报告。
+- 详情与验证边界见 [rc.3 适配记录](docs/dsh-0.2.2-rc.3.md)。本次 Web 验证覆盖宿主与接口，未验证页面渲染、真实模型调用及 macOS / Linux 实机升级。
+
+## English
+
+- Support DSH 0.2.2-rc.3 while retaining rc.1 and 0.2.1-rc.5 / rc.2 compatibility. Adapt six mismatches in escalation errors, repeat reminders, rewind rendering, and approval routing.
+- Handle the minified conversation bundle, preserve tool rejection/cancellation identities and task aborts, and release the application working directory before Windows directory updates.
+- All 39 tests pass on Windows. Desktop/npm compatibility checks, real isolated Web startup, main routes/tools, and 64 drill-tool registrations pass. See the compatibility notes for scope and limitations.
+- The local official rc.3 Windows desktop updates, applies, and restarts successfully. Its rendered panel shows 68/70 applied, two conditional skips, no drift or pending patches, and 42/42 code patches; no new crash report was generated.
+
 # 1.1.96
 
 ## 中文

@@ -7,6 +7,9 @@ if (installDir.length > 3) installDir = installDir.replace(/[\\\/]+$/, '');
 var logPath = __LOG_JSON__;
 var fso = new ActiveXObject('Scripting.FileSystemObject');
 var sh = new ActiveXObject('WScript.Shell');
+// The directory installer renames the complete installation root. Neither
+// this helper nor the installer may hold that root as its working directory.
+sh.CurrentDirectory = fso.GetSpecialFolder(2).Path;
 var wmi = GetObject('winmgmts:\\\\.\\root\\cimv2');
 function z(n) { return (n < 10 ? '0' : '') + n; }
 function stamp() { var d = new Date(); return d.getFullYear() + '-' + z(d.getMonth() + 1) + '-' + z(d.getDate()) + 'T' + z(d.getHours()) + ':' + z(d.getMinutes()) + ':' + z(d.getSeconds()); }
@@ -16,6 +19,7 @@ function pids() { var out = []; var e = new Enumerator(wmi.ExecQuery("SELECT Pro
 function fileSize(fp) { if (!fso.FileExists(fp)) return -1; return fso.GetFile(fp).Size; }
 function fileStamp(fp) { if (!fso.FileExists(fp)) return ''; return String(fso.GetFile(fp).DateLastModified); }
 log('update-begin');
+log('cwd ' + sh.CurrentDirectory);
 WScript.Sleep(800);
 var list = pids();
 log('pids ' + list.join(','));

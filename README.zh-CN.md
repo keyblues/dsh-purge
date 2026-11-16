@@ -4,7 +4,7 @@
 
 <h1 align="center">⚔️ DeepSeek Harness 网络安全红队工具（dsh-purge）</h1>
 
-<p align="center"><strong>Version 1.1.95</strong></p>
+<p align="center"><strong>Version 1.1.97</strong></p>
 
 <p align="center">
   <em>DeepSeek Harness 破甲：让所有模型都能破甲，不同模型可换不同提示词；默认提示词面向国模「小码酱」。Jailbreak for every model — swap prompts per model. 求 Star 收藏 ⭐ 如要二开，请查看署名要求部分</em>
@@ -78,7 +78,7 @@ dsh-purge 最初由原作者独立开发。项目现已由 **dsh-purge 维护团
 
 ## 介绍
 
-**dsh-purge** 是装在本机官方 [DeepSeek Harness](https://www.deepseek.com/harness/) 上的网络安全红队评测插件。当前 **1.1.95** 适配 **DSH 0.2.2-rc.1**，保留 **0.2.1-rc.5 / rc.2** 兼容，并修复自更新列表重复与旧分支请求。官方 **Web**（`dsh web`）和官方 **桌面端**（EXE）分开安装、分开应用。具体改动、验证范围和离线检查命令见 [0.2.2-rc.1 适配记录](docs/dsh-0.2.2-rc.1.md)。
+**dsh-purge** 是装在本机官方 [DeepSeek Harness](https://www.deepseek.com/harness/) 上的网络安全红队评测插件。当前 **1.1.97** 适配 **DSH 0.2.2-rc.3**，保留 **0.2.2-rc.1 / 0.2.1-rc.5 / rc.2** 兼容，并适配结构化错误、压缩后的会话前端和 Windows 升级交接。官方 **Web**（`dsh web`）和官方 **桌面端**（EXE）分开安装、分开应用。具体改动、验证范围和离线检查命令见 [0.2.2-rc.3 适配记录](docs/dsh-0.2.2-rc.3.md)。
 
 Harness 不只是把问题交给模型。它还会在运行时改提示词、审批门、沙箱和会话格式。只看「模型答不答」，会把宿主拦截误当成模型拒绝。这个插件在你自己的安装里把这两层分开，用来做受控评测，也用来看默认策略该不该收紧。
 
@@ -153,15 +153,16 @@ Harness 不只是把问题交给模型。它还会在运行时改提示词、审
 
 ## 适配范围
 
-**1.1.95 的主适配版本为 DSH 0.2.2-rc.1。** CLI / Web 需要 Node.js **24.9.0 或更新版本**；官方桌面端使用自带运行时。
+**1.1.97 的主适配版本为 DSH 0.2.2-rc.3。** CLI / Web 需要 Node.js **24.9.0 或更新版本**；官方桌面端使用自带运行时。
 
+- **dsh 0.2.2-rc.3**：适配结构化权限/确认错误、压缩后的回退界面和 Windows 目录更新；桌面与完整 npm Web 发布文件检查通过。
 - **dsh 0.2.2-rc.1**：适配新版提示词组装、ToolSet 生命周期、拆分后的工具流水线、PTC 执行器与交付物提示词。已检查官方桌面发布包，并在隔离的 npm Web 宿主验证加载和接口。
 - **dsh 0.2.1-rc.5 / rc.2**：保留旧布局，已对官方 npm 文件执行补丁、语法和重复应用回归。
 - **dsh 0.2.0-rc.2**：属于历史支持范围，未纳入本次回归；请按对应旧版发布说明选择插件。
 - **dsh 0.1.7**（含 rc.1 / rc.2）：用 **1.1.39** 及更早 —— 在 [Releases](https://github.com/HunYiSage/dsh-purge/releases) 里选对应标签。
 - **未列出的宿主版本不视为已验证。** 新增 `npm run check:compat -- --base <官方 @deepseek-ai 目录>`，只在内存中模拟补丁并检查漂移，不写入宿主文件。
 
-上游原文变化会显示 `drifted`；缺少可选组件会显示 `missing_file`。完整检查方式见 [适配记录](docs/dsh-0.2.2-rc.1.md)。
+上游原文变化会显示 `drifted`；缺少可选组件会显示 `missing_file`。完整检查方式见 [适配记录](docs/dsh-0.2.2-rc.3.md)。
 
 ---
 

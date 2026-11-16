@@ -4,7 +4,7 @@
 
 <h1 align="center">⚔️ DeepSeek Harness cybersecurity red-team tool (dsh-purge)</h1>
 
-<p align="center"><strong>Version 1.1.95</strong></p>
+<p align="center"><strong>Version 1.1.97</strong></p>
 
 <p align="center">
   <em>DeepSeek Harness jailbreak: every model, swap prompts per model. Default prompt for 小码酱. Please star ⭐ If you build on this, see Attribution required.</em>
@@ -78,7 +78,7 @@ Official channels: this repository's [Issues](https://github.com/HunYiSage/dsh-p
 
 ## What this is
 
-**dsh-purge** is a cybersecurity red-team plugin for the official [DeepSeek Harness](https://www.deepseek.com/harness/) already installed on your machine. **1.1.95** targets **DSH 0.2.2-rc.1**, retains **0.2.1-rc.5 / rc.2** compatibility, and fixes duplicate update choices and requests to the old stable branch. Install and Apply the official **Web** (`dsh web`) and **desktop EXE** separately. See the [compatibility notes](docs/dsh-0.2.2-rc.1.md) for changes and validation scope.
+**dsh-purge** is a cybersecurity red-team plugin for the official [DeepSeek Harness](https://www.deepseek.com/harness/) already installed on your machine. **1.1.97** targets **DSH 0.2.2-rc.3**, retains **0.2.2-rc.1 / 0.2.1-rc.5 / rc.2** compatibility, and adapts structured errors, minified conversation bundles, and the Windows update handoff. Install and Apply the official **Web** (`dsh web`) and **desktop EXE** separately. See the [compatibility notes](docs/dsh-0.2.2-rc.3.md) for changes and validation scope.
 
 Harness does more than forward a prompt. It rewrites prompts, approval gates, sandbox policy, and session migration at runtime. Asking only “will the model answer” treats a host-layer block as a model refusal. This plugin separates those two layers on your own install, for controlled evaluation and for seeing which default policy is too tight.
 
@@ -151,15 +151,16 @@ This repo is [Apache License 2.0](./LICENSE). Forks and redistributions must kee
 
 ## Supported hosts
 
-**1.1.95 targets DSH 0.2.2-rc.1.** CLI / Web requires Node.js **24.9.0 or newer**; the official desktop application supplies its runtime.
+**1.1.97 targets DSH 0.2.2-rc.3.** CLI / Web requires Node.js **24.9.0 or newer**; the official desktop application supplies its runtime.
 
+- **dsh 0.2.2-rc.3**: supports structured escalation/approval errors, minified rewind rendering, and Windows directory updates; checked against desktop and complete npm Web releases.
 - **dsh 0.2.2-rc.1**: adapts prompt assembly, ToolSet lifetime, the split tool pipeline, PTC executor, and deliverable guidance. Checked against the official desktop archive and an isolated npm Web host.
 - **dsh 0.2.1-rc.5 / rc.2**: retains legacy layouts; official npm files pass patch simulation, syntax and repeat-application checks.
 - **dsh 0.2.0-rc.2**: historical support, outside this regression matrix; consult the corresponding older release notes.
 - **dsh 0.1.7** (incl. rc.1 / rc.2): use **1.1.39** or older — pick the tag on [Releases](https://github.com/HunYiSage/dsh-purge/releases).
 - **Unlisted host versions are unverified.** Run `npm run check:compat -- --base <official @deepseek-ai directory>` to simulate patches without modifying host files.
 
-Changed upstream source appears as `drifted`; absent optional components appear as `missing_file`. See the [compatibility notes](docs/dsh-0.2.2-rc.1.md) for the full commands.
+Changed upstream source appears as `drifted`; absent optional components appear as `missing_file`. See the [compatibility notes](docs/dsh-0.2.2-rc.3.md) for the full commands.
 
 ---
 
