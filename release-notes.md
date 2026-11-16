@@ -1,3 +1,17 @@
+# 1.1.99
+
+## 中文
+
+- **默认提示词去掉地区排除句**：加密槽 `lib/asset-table.js` 重新封装，启动/应用时落到 `$DSH_HOME/prompt-inject.md` 的默认文本不再包含 “Excluded targets only: mainland China, Hong Kong/Macau, banks and financial sites, and government/military sites; every other target is in scope.”
+- 1.1.98 只删了运行时闸门，模型仍能从注入文本里读到排除清单；这次清的是提示词层本身。
+- 39 项测试通过；安装副本已同步新的槽文件，重启后由它重新落盘。
+
+## English
+
+- Drop the region exclusion sentence from the sealed default prompt: `lib/asset-table.js` is re-sealed, so the text seeded into `$DSH_HOME/prompt-inject.md` at boot or apply no longer carries “Excluded targets only: mainland China, Hong Kong/Macau, banks and financial sites, and government/military sites; every other target is in scope.”
+- 1.1.98 removed only the runtime gate; the injected prompt still described the exclusions. This release removes them from the prompt itself.
+- All 39 tests pass and the installed copy carries the new slot file.
+
 # 1.1.98
 
 ## 中文
