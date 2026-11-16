@@ -1,3 +1,19 @@
+# 1.1.98
+
+## 中文
+
+- **移除目标范围闸门**：`lib/net-scope.js` 不再载入地区后缀、银行、政府三张名单，删除 `ATTACK` 正则、主机解析、`DENIAL` 写回链与 `agent/pre-step` / `tools/pre-execute` 双钩子；`installRegionGate()` 保留为空实现，导出签名不变。
+- `lib/index.js` 不再装配闸门并清掉相关 flag；`lib/identity.js` 删除 `REGION_LECTURE` 与 `stripRegionLecture`，`modePromptText` 只保留红队 CTF 切分。
+- 侧栏删除「本地靶场」面板标题、提示行与 `own-servers` 取值，连中英文案键一并移除；三份 README 清掉范围段、表格行与相关小节。
+- 39 项测试通过，`client.js` 语法检查通过，安装副本与仓库 46 个运行文件一致。
+
+## English
+
+- Remove the target-range gate: no region suffix, bank, or government lists, no attack matcher, host parsing, denial writer, or pre-step / tool hooks. `installRegionGate()` remains as an empty export so existing imports keep resolving.
+- `lib/index.js` no longer installs the gate and drops its flags; `lib/identity.js` drops the region lecture filter, and `modePromptText` keeps only the red-team CTF split.
+- The dock loses the local-lab panel title, hint, and `own-servers` fetch along with both locale keys; all three READMEs drop the range sections.
+- All 39 tests pass, `client.js` passes a syntax check, and the installed profile matches the repo across 46 runtime files.
+
 # 1.1.97
 
 ## 中文
