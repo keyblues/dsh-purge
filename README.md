@@ -36,7 +36,6 @@ dsh-purge was originally developed by its author as an independent project. It i
 The project's boundaries remain unchanged:
 
 - **The open-source build includes everything sold as paid content.** The skill library and knowledge base ship with it; nothing is locked behind payment.
-- Penetration, attack, or scanning against mainland China, Hong Kong and Macau, banks and financial sites, government and military sites is prohibited.
 
 **About the paid content.** Everything the paid build includes is included in the open-source build. No feature or data in this repository requires payment to unlock; the skill library and knowledge base are part of the open-source release.
 
@@ -419,9 +418,7 @@ The first time you open Drill you read the notice, wait out the countdown, scrol
 
 ![Patches](docs/preview/settings.png)
 
-**Local lab**
 
-Penetration, attack, or scanning against mainland China, Hong Kong and Macau, banks and financial sites, government and military sites is prohibited.
 
 | Area | What it shows |
 |---|---|
@@ -430,7 +427,6 @@ Penetration, attack, or scanning against mainland China, Hong Kong and Macau, ba
 | Drill | assets and environment after authorization. The skill library and knowledge base ship with it. The tab says Unauthorized until then |
 | Patches | grouped status, Apply, Restore, or Uninstall |
 | Prompt | edit `prompt-inject.md` as the session override |
-| Local lab | penetration of mainland China / Hong Kong / Macau, banks, government and military sites is prohibited |
 | Rule sets | multiple `AGENTS.md` / `CLAUDE.md`; Enable writes under `$DSH_HOME`, Delete removes the row |
 
 ---
@@ -495,9 +491,7 @@ For routine tasks, you can also opt into Low reasoning for new sessions:
 
 Restart `dsh web` to load the profile. The model and reasoning defaults apply to newly created sessions; select Low in the composer for an existing session. The plugin does not change these model preferences automatically. Keep High when the task needs deeper reasoning, and narrow file searches rather than recursively scanning every application directory.
 
-### Local lab
 
-Penetration, attack, or scanning against mainland China, Hong Kong and Macau, banks and financial sites, government and military sites is prohibited.
 
 ---
 

@@ -174,11 +174,6 @@ window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
 			"theme.ink": "墨",
 			"purge.title": "补丁",
 			"override.title": "提示词",
-			"own.title": "本地靶场",
-			"own.hint": "禁止对中国大陆、香港、澳门，银行与金融站点，政府与军事站点进行渗透、攻击或扫描。本地演练限定在本机回环与 RFC1918 私网。",
-			"own.save": "保存名单",
-			"saved.own": "已保存自己的服务器",
-			"saved.own.dropped": "已保存。有 {n} 行不是单个 IP 或主机名，已丢掉",
 			"metric.purged": "已写入",
 			"metric.purged.skip": "已写入。跳过 {n} 项，本机没有这些文件",
 			"metric.pendingShort": "待处理 {n}",
@@ -535,11 +530,6 @@ window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
 			"theme.ink": "Ink",
 			"purge.title": "Patches",
 			"override.title": "Prompt",
-			"own.title": "Local lab",
-			"own.hint": "Penetration, attack, or scanning against mainland China, Hong Kong and Macau, banks and financial sites, government and military sites is prohibited. Local drills are limited to loopback and RFC1918 private addresses.",
-			"own.save": "Save list",
-			"saved.own": "Own servers saved",
-			"saved.own.dropped": "Saved. {n} lines were not a single IP or hostname and were dropped",
 			"metric.purged": "Written",
 			"metric.purged.skip": "Written. Skipped {n}; those files are not on this install",
 			"metric.pendingShort": "Pending {n}",
@@ -1576,8 +1566,6 @@ body[data-ds-dark-theme] .rt-rep-step-no,.dshp-dock[data-theme="dusk"] .rt-rep-s
 			const [override, setOverride] = useState("");
 			const [defaultOverride, setDefaultOverride] = useState("");
 			const [overrideLoaded, setOverrideLoaded] = useState(false);
-			const [ownServers, setOwnServers] = useState("");
-			const [ownLoaded, setOwnLoaded] = useState(false);
 			const [patchBusy, setPatchBusy] = useState(false);
 			const [updateBusy, setUpdateBusy] = useState(false);
 			const [canApplyUpdate, setCanApplyUpdate] = useState(false);
@@ -1785,14 +1773,6 @@ body[data-ds-dark-theme] .rt-rep-step-no,.dshp-dock[data-theme="dusk"] .rt-rep-s
 						else setNotice({ kind: "error", text: tr("err.override", { error: (d && d.error) || "" }) });
 					})
 					.catch((e) => setNotice({ kind: "error", text: tr("err.override", { error: e.message }) }));
-				apiJson("/dsh-purge/own-servers")
-					.then((d) => {
-						if (d && d.ok) {
-							setOwnServers(typeof d.content === "string" ? d.content : "");
-							setOwnLoaded(true);
-						}
-					})
-					.catch(() => {});
 			}, []);
 
 			useEffect(() => {
@@ -2255,10 +2235,6 @@ body[data-ds-dark-theme] .rt-rep-step-no,.dshp-dock[data-theme="dusk"] .rt-rep-s
 					className: "dshp-hint",
 					style: { margin: "8px 0 0", color: "var(--dshp-danger, #c44)", fontSize: 12 },
 				}, t("need.prompt")) : null,
-				h("div", { className: "dshp-sub" },
-					h("h4", null, t("own.title")),
-				),
-				h("p", { className: "dshp-hint", style: { margin: "8px 0 0", color: "var(--dshp-mute)", fontSize: 12 } }, t("own.hint")),
 			);
 		}
 
